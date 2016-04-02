@@ -1,0 +1,104 @@
+﻿
+<div ng-show="vm.order == null">
+    <div class="row bootstrap-admin-no-edges-padding" style="margin-top: 10px;">
+        <div class="col-md-12">
+            <input type="button" id="btn-create" value="New" class="btn btn-primary" ng-click="vm.New()" />
+        </div>
+    </div>
+
+    <div class="row bootstrap-admin-no-edges-padding" style="margin-top: 10px;">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="text-muted bootstrap-admin-box-title">
+                        {{vm.title}}
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th class="col-md-2">
+                                    <b><span>Creation Date</span></b>
+                                </th>
+                                <th class="col-md-4">
+                                    <b><span>Customer</span></b>
+                                </th>
+                                <th class="col-md-4">
+                                    <b><span>Article</span></b>
+                                </th>
+                                <th class="col-md-2">
+                                    <b><span>Amount</span></b>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody data-ng-repeat="order in vm.orders">
+                            <tr ng-click="vm.Edit(order)">
+                                <td>
+                                    <span>{{order.CreationDate | date: 'dd/MM/yyyy'}}</span>
+                                </td>
+                                <td>
+                                    <span>{{order.Customer}}</span>
+                                </td>
+                                <td>
+                                    <span>{{order.Article}}</span>
+                                </td>
+                                <td>
+                                    <span>{{order.Amount | number: 2}}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-show="vm.order != null">
+    <div class="row bootstrap-admin-no-edges-padding" style="margin-top: 10px;">
+        <div class="col-md-12">
+            <input type="button" id="btn-save" value="Save" class="btn btn-primary" ng-click="vm.Save()" />
+            <input type="button" id="btn-delete" value="Delete" class="btn btn-danger" ng-click="vm.Delete()" />
+            <input type="button" id="btn-close" value="Close" class="btn btn-default" ng-click="vm.Close()" />
+        </div>
+    </div>
+    <div class="row bootstrap-admin-no-edges-padding" style="margin-top: 10px;">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="text-muted bootstrap-admin-box-title">
+                        {{vm.title}}
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="Article">Article:</label>
+                        <input type="text" id="Article" class="form-control" ng-model="vm.order.Article" placeholder="Article" />
+                    </div>
+                    <div class="form-group">
+                        <label for="Amount">Amount:</label>
+                        <input type="text" class="form-control" ng-model="vm.order.Amount" placeholder="Amount" decimal-number />
+                    </div>
+                    <div class="form-group">
+                        <label for="Customer">Customer:</label>
+                        <input type="text" id="Customer" class="form-control" ng-model="vm.order.Customer" placeholder="Customer" />
+                    </div>
+                    <div class="form-group">
+                        <label for="Notes">Notes:</label>
+                        <input type="text" id="Notes" class="form-control" ng-model="vm.order.Notes" placeholder="Notes" />
+                    </div>
+                    <div class="form-group">
+                        <label>Creation Date:</label>
+                        {{vm.order.CreationDate | date: 'dd/MM/yyyy'}}
+                    </div>
+
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
