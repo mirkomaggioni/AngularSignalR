@@ -38,3 +38,4 @@ var AngularSignalRApp;
         AngularSignalRApp.AngularSignalR.module.factory('OrdersService', ['$resource', OrdersService.factory()]);
     })(Services = AngularSignalRApp.Services || (AngularSignalRApp.Services = {}));
 })(AngularSignalRApp || (AngularSignalRApp = {}));
+//# sourceMappingURL=OrdersService.js.map

@@ -1,13 +1,14 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
 
 namespace AngularSignalR.Services
 {
     public class NotificationsHub : Hub
     {
-        public void OrderChanges()
+        public async Task OrderChanges()
         {
-            Clients.Others.NotifyOrderChanges();
+            await Clients.Others.NotifyOrderChanges();
         }
     }
 }

@@ -83,3 +83,4 @@ var AngularSignalRApp;
         AngularSignalRApp.AngularSignalR.module.controller('OrdersController', OrdersController);
     })(Controllers = AngularSignalRApp.Controllers || (AngularSignalRApp.Controllers = {}));
 })(AngularSignalRApp || (AngularSignalRApp = {}));
+//# sourceMappingURL=OrdersController.js.map

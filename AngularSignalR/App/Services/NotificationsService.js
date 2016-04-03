@@ -29,3 +29,4 @@ var AngularSignalRApp;
         AngularSignalRApp.AngularSignalR.module.factory('NotificationsService', [NotificationsService.factory()]);
     })(Services = AngularSignalRApp.Services || (AngularSignalRApp.Services = {}));
 })(AngularSignalRApp || (AngularSignalRApp = {}));
+//# sourceMappingURL=NotificationsService.js.map

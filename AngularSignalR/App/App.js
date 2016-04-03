@@ -17,3 +17,4 @@ var AngularSignalRApp;
             });
         }]);
 })(AngularSignalRApp || (AngularSignalRApp = {}));
+//# sourceMappingURL=App.js.map

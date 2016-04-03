@@ -31,3 +31,4 @@ var AngularSignalRApp;
         AngularSignalRApp.AngularSignalR.module.directive('decimalNumber', DecimalNumber.factory());
     })(Directives = AngularSignalRApp.Directives || (AngularSignalRApp.Directives = {}));
 })(AngularSignalRApp || (AngularSignalRApp = {}));
+//# sourceMappingURL=DecimalNumberValidationDirective.js.map

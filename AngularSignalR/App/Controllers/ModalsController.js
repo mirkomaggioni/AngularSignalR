@@ -19,3 +19,4 @@ var AngularSignalRApp;
         AngularSignalRApp.AngularSignalR.module.controller('ModalsController', ModalsController);
     })(Controllers = AngularSignalRApp.Controllers || (AngularSignalRApp.Controllers = {}));
 })(AngularSignalRApp || (AngularSignalRApp = {}));
+//# sourceMappingURL=ModalsController.js.map
