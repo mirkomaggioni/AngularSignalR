@@ -123,8 +123,11 @@
     <Content Include="Content\loading-bar.min.css" />
     <Content Include="Content\ui-bootstrap-csp.css" />
     <Content Include="Global.asax" />
+    <Content Include="gulpfile.js" />
     <Content Include="Index.html" />
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Scripts\angular-ui-router.js" />
     <Content Include="Scripts\angular-ui-router.min.js" />
     <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.js" />
@@ -134,6 +137,9 @@
     <Content Include="Scripts\jquery-2.2.1.js" />
     <Content Include="Scripts\jquery-2.2.1.min.js" />
     <Content Include="Scripts\jquery-2.2.1.min.map" />
+    <Content Include="package.json" />
+    <Content Include=".bowerrc" />
+    <Content Include="bower.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
