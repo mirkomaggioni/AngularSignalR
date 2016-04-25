@@ -1,60 +1,81 @@
 ﻿'use strict';
 
-
-//UTILIZZARE WIREDEP, TYPESCRIPT
 var gulp = require('gulp'),
-        rimraf = require('rimraf'),
-        concat = require('gulp-concat'),
-        cssmin = require('gulp-cssmin'),
-        uglify = require('gulp-uglify');
+    concat = require('gulp-concat'),
+    cleanCss = require('gulp-clean-css'),
+    uglify = require('gulp-uglify'),
+    inject = require('gulp-inject'),
+    useref = require('gulp-useref'),
+    gulpif = require('gulp-if'),
+    rename = require('gulp-rename'),
+    del = require('del')
 
 var config = {
   js: 'App/**/*.js',
-  minjs: 'App/**/*.min.js',
-  concatjsdest: 'App/site.min.js'
+  dist: './dist',
+  indexDev: 'index.dev.html'
 }
 
-//paths.minCss = paths.webroot + 'css/**/*.min.css';
-//paths.concatJsDest = paths.webroot + 'js/site.min.js';
-//paths.concatCssDest = paths.webroot + 'css/site.min.css';
+//Inject
+gulp.task('inject', function (cb) {
+  var target = gulp.src('index.dev.html');
+  var sources = gulp.src([config.js]);
 
+  return target.pipe(inject(sources))
+            .pipe(gulp.dest('.'));
+});
+// End inject
 
-gulp.task('clean:js', function (callback) {
-  console.log('START clean:js');
-  rimraf(config.concatjsdest, callback);
+//Useref
+gulp.task('useref', ['inject'], function () {
+  var source = gulp.src('index.dev.html');
+
+  return source
+    .pipe(useref())
+    .pipe(gulpif('*.css', cleanCss()))
+    .pipe(gulpif('*.js', uglify()))
+    .pipe(gulp.dest(config.dist));
+});
+//End Useref
+
+//Move/Rename
+gulp.task('renameIndexDist', ['inject'], function (cb) {
+  return gulp.src(config.dist + '/' + config.indexDev)
+    .pipe(rename({
+      basename: 'index'
+    }))
+    .pipe(gulp.dest(config.dist));
 });
 
-//gulp.task("clean:css", function (cb) {
-//  rimraf(paths.concatCssDest, cb);
-//});
-
-gulp.task('clean', ['clean:js']);
-//gulp.task("clean", ["clean:js", "clean:css"]);
-
-gulp.task('min:js', function () {
-  console.log('START min:js');
-
-  return gulp.src([config.js, '!' + config.minjs], { base: '.' })
-          .pipe(concat(config.concatjsdest))
-          .pipe(uglify())
-          .pipe(gulp.dest('.'));
+gulp.task('removeIndexDist', ['renameIndexDist'], function (cb) {
+  return del([config.dist + '/' + config.indexDev], { force: true });
 });
 
-//gulp.task('min:css', function () {
-//  return gulp.src([paths.css, '!' + paths.minCss])
-//          .pipe(concat(paths.concatCssDest))
-//          .pipe(cssmin())
-//          .pipe(gulp.dest('.'));
-//});
+gulp.task('copyDist', ['removeIndexDist'], function () {
+  return gulp.src(config.dist + '/**/*.*')
+    .pipe(gulp.dest('.'));
+});
 
+gulp.task('moveDist', ['copyDist'], function () {
+  return del([config.dist], { force: true });
+});
 
-gulp.task('min', ['min:js']);
-//gulp.task('min', ['min:js', 'min:css']);
+gulp.task('renameIndexDev', ['inject'], function () {
+  return gulp.src('./' + config.indexDev)
+    .pipe(rename({
+      basename: 'index'
+    }))
+    .pipe(gulp.dest('.'));
+});
+//End Move/Rename
 
-gulp.task('scripts', ['clean'], function () {
-  console.log('START scripts');
-
-  gulp.start('min');
+gulp.task('scripts', function () {
+  if (process.env.NODE_ENV == 'Debug') {
+    gulp.start('inject', 'renameIndexDev');
+  }
+  else {
+    gulp.start('inject', 'useref', 'moveDist');
+  }
 });
 
 gulp.task('default', ['scripts']);
