@@ -1,3 +1,4 @@
+/// <reference path="../../scripts/typings/signalr/signalr.d.ts" />
 var AngularSignalRApp;
 (function (AngularSignalRApp) {
     var Services;
@@ -24,9 +25,10 @@ var AngularSignalRApp;
                 return function () { return new NotificationsService(); };
             };
             return NotificationsService;
-        })();
+        }());
         Services.NotificationsService = NotificationsService;
         AngularSignalRApp.AngularSignalR.module.factory('NotificationsService', [NotificationsService.factory()]);
     })(Services = AngularSignalRApp.Services || (AngularSignalRApp.Services = {}));
 })(AngularSignalRApp || (AngularSignalRApp = {}));
+
 //# sourceMappingURL=NotificationsService.js.map

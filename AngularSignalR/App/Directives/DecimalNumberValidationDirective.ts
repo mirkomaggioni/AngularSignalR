@@ -1,4 +1,5 @@
-﻿
+﻿/// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
+
 module AngularSignalRApp.Directives {
 
     export class DecimalNumber implements ng.IDirective {

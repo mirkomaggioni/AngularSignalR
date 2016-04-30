@@ -1,7 +1,11 @@
-﻿
+﻿/// <reference path="../../scripts/typings/angular-ui-bootstrap/angular-ui-bootstrap.d.ts" />
+/// <reference path="../../scripts/typings/angularjs-toaster/angularjs-toaster.d.ts" />
+/// <reference path="../../scripts/typings/angularjs/angular-resource.d.ts" />
+
 module AngularSignalRApp.Controllers {
 
     import ngr = ng.resource;
+    import constans = AngularSignalRApp.Commons.Constants;
 
     export class OrdersController {
         orders: ngr.IResourceArray<ngr.IResource<AngularSignalRApp.Models.IOrder>>;
@@ -35,7 +39,7 @@ module AngularSignalRApp.Controllers {
 
         public New() {
             this.order = {
-                Id: GuidEmpty,
+                Id: constans.GuidEmpty,
                 Article: "",
                 Amount: 0,
                 CreationDate: new Date(),
@@ -44,7 +48,7 @@ module AngularSignalRApp.Controllers {
             };
         }
 
-        public Edit(order) {
+        public Edit(order: AngularSignalRApp.Models.IOrder) {
             this.order = order;
         }
 
@@ -74,8 +78,8 @@ module AngularSignalRApp.Controllers {
         }
 
         public Save() {
-            this.ordersService.save(this.order).$promise.then((data) => {
-                if (this.order.Id == GuidEmpty) {
+            this.ordersService.save(this.order).$promise.then((data: any) => {
+                if (this.order.Id == constans.GuidEmpty) {
                     this.order = data;
                     this.orders.push(data);
                 }
@@ -83,7 +87,7 @@ module AngularSignalRApp.Controllers {
                 this.notificationsService.NotifyOrderChanges();
                 this.toaster.success("Order saved successfully.");
 
-            }, (error) => {
+            }, (error: any) => {
                 this.toaster.error("Error saving order", error.data.message);
             });
         }

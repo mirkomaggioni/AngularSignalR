@@ -1,7 +1,11 @@
+/// <reference path="../../scripts/typings/angular-ui-bootstrap/angular-ui-bootstrap.d.ts" />
+/// <reference path="../../scripts/typings/angularjs-toaster/angularjs-toaster.d.ts" />
+/// <reference path="../../scripts/typings/angularjs/angular-resource.d.ts" />
 var AngularSignalRApp;
 (function (AngularSignalRApp) {
     var Controllers;
     (function (Controllers) {
+        var constans = AngularSignalRApp.Commons.Constants;
         var OrdersController = (function () {
             function OrdersController(filter, modalService, toaster, ordersService, notificationsService) {
                 var _this = this;
@@ -18,7 +22,7 @@ var AngularSignalRApp;
             }
             OrdersController.prototype.New = function () {
                 this.order = {
-                    Id: GuidEmpty,
+                    Id: constans.GuidEmpty,
                     Article: "",
                     Amount: 0,
                     CreationDate: new Date(),
@@ -53,7 +57,7 @@ var AngularSignalRApp;
             OrdersController.prototype.Save = function () {
                 var _this = this;
                 this.ordersService.save(this.order).$promise.then(function (data) {
-                    if (_this.order.Id == GuidEmpty) {
+                    if (_this.order.Id == constans.GuidEmpty) {
                         _this.order = data;
                         _this.orders.push(data);
                     }
@@ -78,9 +82,10 @@ var AngularSignalRApp;
             };
             OrdersController.$inject = ['$filter', '$uibModal', 'toaster', 'OrdersService', 'NotificationsService'];
             return OrdersController;
-        })();
+        }());
         Controllers.OrdersController = OrdersController;
         AngularSignalRApp.AngularSignalR.module.controller('OrdersController', OrdersController);
     })(Controllers = AngularSignalRApp.Controllers || (AngularSignalRApp.Controllers = {}));
 })(AngularSignalRApp || (AngularSignalRApp = {}));
+
 //# sourceMappingURL=OrdersController.js.map

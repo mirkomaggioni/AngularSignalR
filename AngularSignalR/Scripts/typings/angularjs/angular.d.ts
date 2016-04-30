@@ -1834,7 +1834,7 @@ declare namespace angular {
         (): IAugmentedJQuery;
     }
 
-    interface IAugmentedJQuery extends JQuery {
+    interface IAugmentedJQuery {
         // TODO: events, how to define?
         //$destroy
 

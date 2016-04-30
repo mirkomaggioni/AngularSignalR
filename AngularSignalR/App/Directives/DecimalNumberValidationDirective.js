@@ -1,3 +1,4 @@
+/// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
 var AngularSignalRApp;
 (function (AngularSignalRApp) {
     var Directives;
@@ -26,9 +27,10 @@ var AngularSignalRApp;
                 return function () { return new DecimalNumber(); };
             };
             return DecimalNumber;
-        })();
+        }());
         Directives.DecimalNumber = DecimalNumber;
         AngularSignalRApp.AngularSignalR.module.directive('decimalNumber', DecimalNumber.factory());
     })(Directives = AngularSignalRApp.Directives || (AngularSignalRApp.Directives = {}));
 })(AngularSignalRApp || (AngularSignalRApp = {}));
+
 //# sourceMappingURL=DecimalNumberValidationDirective.js.map

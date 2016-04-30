@@ -1,3 +1,4 @@
+/// <reference path="../../scripts/typings/angular-ui-bootstrap/angular-ui-bootstrap.d.ts" />
 var AngularSignalRApp;
 (function (AngularSignalRApp) {
     var Controllers;
@@ -14,9 +15,10 @@ var AngularSignalRApp;
             };
             ModalsController.$inject = ['$uibModalInstance'];
             return ModalsController;
-        })();
+        }());
         Controllers.ModalsController = ModalsController;
         AngularSignalRApp.AngularSignalR.module.controller('ModalsController', ModalsController);
     })(Controllers = AngularSignalRApp.Controllers || (AngularSignalRApp.Controllers = {}));
 })(AngularSignalRApp || (AngularSignalRApp = {}));
+
 //# sourceMappingURL=ModalsController.js.map

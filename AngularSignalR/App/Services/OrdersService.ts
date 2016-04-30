@@ -2,9 +2,10 @@
 module AngularSignalRApp.Services {
 
     import ngr = ng.resource;
+    import constants = AngularSignalRApp.Commons.Constants;
 
     export interface IOrdersResourceClass extends ngr.IResourceClass<ngr.IResource<AngularSignalRApp.Models.IOrder>> {
-        create(order: AngularSignalRApp.Models.IOrder);
+        create(order: AngularSignalRApp.Models.IOrder): ngr.IResource<AngularSignalRApp.Models.IOrder>;
     }
 
     export class OrdersService {
@@ -25,7 +26,7 @@ module AngularSignalRApp.Services {
         }
 
         public save(order: AngularSignalRApp.Models.IOrder) {
-            if (order.Id == GuidEmpty) {
+            if (order.Id == constants.GuidEmpty) {
                 return this.resource.create(order);
             }
             else {
@@ -42,7 +43,7 @@ module AngularSignalRApp.Services {
         }
 
         static factory() {
-            return (r) => new OrdersService(r);
+            return (r: ngr.IResourceService) => new OrdersService(r);
         }
     }
 

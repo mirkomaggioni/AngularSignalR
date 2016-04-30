@@ -1,11 +1,12 @@
-﻿
+﻿/// <reference path="../../scripts/typings/signalr/signalr.d.ts" />
+
 module AngularSignalRApp.Services {
 
     export class NotificationsService {
 
         private connection: HubConnection;
         private proxy: HubProxy;
-        private callback;
+        private callback: () => void;
 
         constructor() {
             this.connection = $.hubConnection();
@@ -22,7 +23,7 @@ module AngularSignalRApp.Services {
             this.proxy.invoke('OrderChanges');
         }
 
-        public OnOrderChanges(callback) {
+        public OnOrderChanges(callback: () => void) {
             if (callback) {
                 this.callback = callback;
             }
