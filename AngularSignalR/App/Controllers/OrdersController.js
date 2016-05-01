@@ -5,14 +5,15 @@ var AngularSignalRApp;
 (function (AngularSignalRApp) {
     var Controllers;
     (function (Controllers) {
-        var constans = AngularSignalRApp.Commons.Constants;
+        var constant = AngularSignalRApp.Commons.Constants;
         var OrdersController = (function () {
-            function OrdersController(filter, modalService, toaster, ordersService, notificationsService) {
+            function OrdersController($filter, $uibModal, toaster, OrdersService, NotificationsService) {
                 var _this = this;
-                this.filter = filter;
-                this.modalService = modalService;
-                this.ordersService = ordersService;
-                this.notificationsService = notificationsService;
+                this.filter = $filter;
+                this.modalService = $uibModal;
+                this.ordersService = OrdersService;
+                this.notificationsService = NotificationsService;
+                this.constant = constant;
                 this.notificationsService.OnOrderChanges(function () {
                     _this.Load();
                 });
@@ -22,7 +23,7 @@ var AngularSignalRApp;
             }
             OrdersController.prototype.New = function () {
                 this.order = {
-                    Id: constans.GuidEmpty,
+                    Id: constant.GuidEmpty,
                     Article: "",
                     Amount: 0,
                     CreationDate: new Date(),
@@ -57,7 +58,7 @@ var AngularSignalRApp;
             OrdersController.prototype.Save = function () {
                 var _this = this;
                 this.ordersService.save(this.order).$promise.then(function (data) {
-                    if (_this.order.Id == constans.GuidEmpty) {
+                    if (_this.order.Id == constant.GuidEmpty) {
                         _this.order = data;
                         _this.orders.push(data);
                     }
@@ -80,7 +81,6 @@ var AngularSignalRApp;
                     _this.toaster.error("Error loading orders", error.data.message);
                 });
             };
-            OrdersController.$inject = ['$filter', '$uibModal', 'toaster', 'OrdersService', 'NotificationsService'];
             return OrdersController;
         }());
         Controllers.OrdersController = OrdersController;

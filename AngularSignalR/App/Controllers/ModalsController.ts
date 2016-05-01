@@ -5,10 +5,8 @@ module AngularSignalRApp.Controllers {
     export class ModalsController {
         private modalInstance: ng.ui.bootstrap.IModalServiceInstance;
 
-        public static $inject = ['$uibModalInstance'];
-
-        constructor(modalInstance: ng.ui.bootstrap.IModalServiceInstance) {
-            this.modalInstance = modalInstance;
+        constructor($uibModalInstance: ng.ui.bootstrap.IModalServiceInstance) {
+            this.modalInstance = $uibModalInstance;
         }
 
         public Ok() {

@@ -5,7 +5,7 @@
 module AngularSignalRApp.Controllers {
 
     import ngr = ng.resource;
-    import constans = AngularSignalRApp.Commons.Constants;
+    import constant = AngularSignalRApp.Commons.Constants;
 
     export class OrdersController {
         orders: ngr.IResourceArray<ngr.IResource<AngularSignalRApp.Models.IOrder>>;
@@ -17,15 +17,15 @@ module AngularSignalRApp.Controllers {
         private modalService: ng.ui.bootstrap.IModalService;
         private ordersService: AngularSignalRApp.Services.OrdersService;
         private notificationsService: AngularSignalRApp.Services.NotificationsService;
+        private constant: AngularSignalRApp.Commons.Constants;
 
-        public static $inject = ['$filter', '$uibModal', 'toaster', 'OrdersService', 'NotificationsService'];
-
-        constructor(filter: ng.IFilterService, modalService: ng.ui.bootstrap.IModalService, toaster: ngtoaster.IToasterService,
-            ordersService: AngularSignalRApp.Services.OrdersService, notificationsService: AngularSignalRApp.Services.NotificationsService) {
-            this.filter = filter;
-            this.modalService = modalService;
-            this.ordersService = ordersService;
-            this.notificationsService = notificationsService;
+        constructor($filter: ng.IFilterService, $uibModal: ng.ui.bootstrap.IModalService, toaster: ngtoaster.IToasterService,
+            OrdersService: AngularSignalRApp.Services.OrdersService, NotificationsService: AngularSignalRApp.Services.NotificationsService) {
+            this.filter = $filter;
+            this.modalService = $uibModal;
+            this.ordersService = OrdersService;
+            this.notificationsService = NotificationsService;
+            this.constant = constant;
 
             this.notificationsService.OnOrderChanges(() => {
                 this.Load();
@@ -39,7 +39,7 @@ module AngularSignalRApp.Controllers {
 
         public New() {
             this.order = {
-                Id: constans.GuidEmpty,
+                Id: constant.GuidEmpty,
                 Article: "",
                 Amount: 0,
                 CreationDate: new Date(),
@@ -79,7 +79,7 @@ module AngularSignalRApp.Controllers {
 
         public Save() {
             this.ordersService.save(this.order).$promise.then((data: any) => {
-                if (this.order.Id == constans.GuidEmpty) {
+                if (this.order.Id == constant.GuidEmpty) {
                     this.order = data;
                     this.orders.push(data);
                 }

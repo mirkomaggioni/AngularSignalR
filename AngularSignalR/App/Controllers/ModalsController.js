@@ -4,8 +4,8 @@ var AngularSignalRApp;
     var Controllers;
     (function (Controllers) {
         var ModalsController = (function () {
-            function ModalsController(modalInstance) {
-                this.modalInstance = modalInstance;
+            function ModalsController($uibModalInstance) {
+                this.modalInstance = $uibModalInstance;
             }
             ModalsController.prototype.Ok = function () {
                 this.modalInstance.close();
@@ -13,7 +13,6 @@ var AngularSignalRApp;
             ModalsController.prototype.Cancel = function () {
                 this.modalInstance.dismiss("cancel");
             };
-            ModalsController.$inject = ['$uibModalInstance'];
             return ModalsController;
         }());
         Controllers.ModalsController = ModalsController;

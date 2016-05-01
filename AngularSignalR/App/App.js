@@ -8,15 +8,15 @@ var AngularSignalRApp;
         return AngularSignalR;
     }());
     AngularSignalRApp.AngularSignalR = AngularSignalR;
-    AngularSignalR.module.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-            $urlRouterProvider.otherwise("/orders");
-            $stateProvider
-                .state('Orders', {
-                url: '/orders',
-                templateUrl: '/app/views/orders.html',
-                controller: 'OrdersController as vm'
-            });
-        }]);
+    AngularSignalR.module.config(function ($stateProvider, $urlRouterProvider) {
+        $urlRouterProvider.otherwise("/orders");
+        $stateProvider
+            .state('Orders', {
+            url: '/orders',
+            templateUrl: '/app/views/orders.html',
+            controller: 'OrdersController as vm'
+        });
+    });
 })(AngularSignalRApp || (AngularSignalRApp = {}));
 
 //# sourceMappingURL=App.js.map

@@ -6,11 +6,15 @@ var gulp = require('gulp'),
   uglify = require('gulp-uglify'),
   inject = require('gulp-inject'),
   useref = require('gulp-useref'),
-  gulpif = require('gulp-if'),
   rename = require('gulp-rename'),
   del = require('del'),
   ts = require('gulp-typescript'),
-  sourcemaps = require('gulp-sourcemaps')
+  sourcemaps = require('gulp-sourcemaps'),
+  rev = require('gulp-rev'),
+  revReplace = require('gulp-rev-replace'),
+  ngAnnotate = require('gulp-ng-annotate'),
+  runSequence = require('run-sequence'),
+  filter = require('gulp-filter')
 
 var config = {
   jsBasePath: 'App/',
@@ -58,34 +62,43 @@ gulp.task('inject', ['typescript'], function (cb) {
 //Useref
 gulp.task('useref', ['inject'], function () {
   var source = gulp.src(config.indexDev);
+  var jsFilter = filter('**/*.js', { restore: true });
+  var cssFilter = filter('**/*.css', { restore: true });
 
   return source
     .pipe(useref())
-    .pipe(gulpif('*.css', cleanCss()))
-    .pipe(gulpif('*.js', uglify()))
+    .pipe(cssFilter)
+    .pipe(cleanCss())
+    .pipe(cssFilter.restore)
+    .pipe(jsFilter)
+    .pipe(ngAnnotate())
+    .pipe(uglify())
+    .pipe(jsFilter.restore)
+    .pipe(rev())
+    .pipe(revReplace())
     .pipe(gulp.dest(config.dist));
 });
 //End Useref
 
 //Move/Rename
-gulp.task('renameIndexDist', ['useref'], function (cb) {
-  return gulp.src(config.dist + '/' + config.indexDev)
+gulp.task('renameIndexDist', function (cb) {
+  return gulp.src(config.dist + '/index-*.dev.html')
     .pipe(rename({
       basename: 'index'
     }))
     .pipe(gulp.dest(config.dist));
 });
 
-gulp.task('removeIndexDist', ['renameIndexDist'], function (cb) {
-  return del([config.dist + '/' + config.indexDev], { force: true });
+gulp.task('removeFiles', function (cb) {
+  return del([config.dist + '//index-*.dev.html', 'Content/lib-*.min.css', 'Scripts/app-*.min.js', 'Scripts/lib-*.min.js'], { force: true });
 });
 
-gulp.task('copyDist', ['removeIndexDist'], function () {
+gulp.task('copyDist', function () {
   return gulp.src(config.dist + '/**/*.*')
     .pipe(gulp.dest('.'));
 });
 
-gulp.task('moveDist', ['copyDist'], function () {
+gulp.task('removeDist', function () {
   return del([config.dist], { force: true });
 });
 
@@ -99,12 +112,11 @@ gulp.task('renameIndexDev', ['inject'], function () {
 //End Move/Rename
 
 gulp.task('scripts', function () {
-  console.log('mode: ' + process.env.NODE_ENV);
   if (process.env.NODE_ENV == 'Debug') {
     gulp.start('renameIndexDev');
   }
   else {
-    gulp.start('moveDist');
+    runSequence('useref', 'renameIndexDist', 'removeFiles', 'copyDist', 'removeDist');
   }
 });
 
