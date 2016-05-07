@@ -4,9 +4,32 @@
   <meta charset="utf-8" />
   <title>Angular SignalR Application</title>
 
-  <link rel="stylesheet" href="Content/lib-0e65e62a3b.min.css">
+  <!-- build:css Content/lib.min.css -->
+  <!-- bower:css  -->
+  <link rel="stylesheet" href="bower_components/angular-bootstrap/ui-bootstrap-csp.css" />
+  <link rel="stylesheet" href="bower_components/AngularJS-Toaster/toaster.css" />
+  <link rel="stylesheet" href="bower_components/angular-loading-bar/src/loading-bar.css" />
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+  <!-- endbower -->
+  <!-- endbuild -->
 
-  <script src="Scripts/lib-172ed2ea27.min.js"></script>
+  <!-- build:js Scripts/lib.min.js -->
+  <!-- bower:js  -->
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.js"></script>
+  <script src="bower_components/AngularJS-Toaster/toaster.js"></script>
+  <script src="bower_components/angular-loading-bar/src/loading-bar.js"></script>
+  <script src="bower_components/angular-resource/angular-resource.js"></script>
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="bower_components/jquery-ui/jquery-ui.js"></script>
+  <script src="bower_components/signalr/jquery.signalR.js"></script>
+  <script src="bower_components/q/q.js"></script>
+  <!-- endbower -->
+  <!-- endbuild -->
 </head>
 <body ng-app="angularSignalR">
   <toaster-container></toaster-container>
@@ -15,6 +38,17 @@
     <div ui-view=""></div>
   </section>
 
-  <script src="Scripts/app-cc64564838.min.js"></script>
+  <!-- build:js Scripts/app.min.js -->
+  <!-- inject:js -->
+  <script src="/App/App.js"></script>
+  <script src="/App/Commons.js"></script>
+  <script src="/App/Controllers/ModalsController.js"></script>
+  <script src="/App/Controllers/OrdersController.js"></script>
+  <script src="/App/Directives/DecimalNumberValidationDirective.js"></script>
+  <script src="/App/Models/Order.js"></script>
+  <script src="/App/Services/NotificationsService.js"></script>
+  <script src="/App/Services/OrdersService.js"></script>
+  <!-- endinject -->
+  <!-- endbuild -->
 </body>
 </html>
