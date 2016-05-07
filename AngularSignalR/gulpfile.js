@@ -14,7 +14,9 @@ var gulp = require('gulp'),
   revReplace = require('gulp-rev-replace'),
   ngAnnotate = require('gulp-ng-annotate'),
   runSequence = require('run-sequence'),
-  filter = require('gulp-filter')
+  filter = require('gulp-filter'),
+  bower = require('gulp-bower'),
+  wiredep = require('wiredep').stream
 
 var config = {
   jsBasePath: 'App/',
@@ -48,6 +50,19 @@ gulp.task('watchTypescript', ['typescript'], function () {
   gulp.watch(config.ts, ['typescript']);
 });
 //End Typescript
+
+//Bower
+gulp.task('bower', function () {
+  return bower();
+});
+
+gulp.task('wiredep', ['bower'], function () {
+  var source = gulp.src('./' + config.indexDev);
+
+  return source.pipe(wiredep({}))
+    .pipe(gulp.dest('.'));
+});
+//End Bower
 
 //Inject
 gulp.task('inject', ['typescript'], function (cb) {
@@ -113,10 +128,10 @@ gulp.task('renameIndexDev', ['inject'], function () {
 
 gulp.task('scripts', function () {
   if (process.env.NODE_ENV == 'Debug') {
-    gulp.start('renameIndexDev');
+    runSequence('wiredep', 'inject', 'renameIndexDev');
   }
   else {
-    runSequence('useref', 'renameIndexDist', 'removeFiles', 'copyDist', 'removeDist');
+    runSequence('wiredep', 'useref', 'renameIndexDist', 'removeFiles', 'copyDist', 'removeDist');
   }
 });
 
