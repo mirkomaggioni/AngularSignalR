@@ -1,6 +1,10 @@
 /// <reference path="../../scripts/typings/angular-ui-bootstrap/angular-ui-bootstrap.d.ts" />
 /// <reference path="../../scripts/typings/angularjs-toaster/angularjs-toaster.d.ts" />
 /// <reference path="../../scripts/typings/angularjs/angular-resource.d.ts" />
+/// <reference path="../models/order.ts" />
+/// <reference path="../services/ordersservice.ts" />
+/// <reference path="../services/notificationsservice.ts" />
+/// <reference path="../commons.ts" />
 var AngularSignalRApp;
 (function (AngularSignalRApp) {
     var Controllers;
