@@ -5,6 +5,7 @@
 /// <reference path="../services/ordersservice.ts" />
 /// <reference path="../services/notificationsservice.ts" />
 /// <reference path="../commons.ts" />
+/// <reference path="../app.ts" />
 
 module AngularSignalRApp.Controllers {
 
