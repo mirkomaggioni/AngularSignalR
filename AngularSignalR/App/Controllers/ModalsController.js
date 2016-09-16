@@ -16,7 +16,7 @@ var AngularSignalRApp;
             return ModalsController;
         }());
         Controllers.ModalsController = ModalsController;
-        AngularSignalRApp.AngularSignalR.module.controller('ModalsController', ModalsController);
+        AngularSignalRApp.AngularSignalR.module.controller("ModalsController", ModalsController);
     })(Controllers = AngularSignalRApp.Controllers || (AngularSignalRApp.Controllers = {}));
 })(AngularSignalRApp || (AngularSignalRApp = {}));
 

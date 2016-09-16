@@ -5,15 +5,19 @@ var AngularSignalRApp;
     (function (Directives) {
         var DecimalNumber = (function () {
             function DecimalNumber() {
-                this.restrict = 'A';
-                this.require = '?ngModel';
+                this.restrict = "A";
+                this.require = "?ngModel";
             }
+            DecimalNumber.factory = function () {
+                return function () { return new DecimalNumber(); };
+            };
             DecimalNumber.prototype.link = function ($scope, element, attributes, modelController) {
                 modelController.$parsers.push(function (value) {
-                    if (value == undefined)
-                        return '';
-                    var replacedValue = value.replace(/[^-0-9\.]/g, '');
-                    if (replacedValue.split('.').length > 2) {
+                    if (value === undefined) {
+                        return "";
+                    }
+                    var replacedValue = value.replace(/[^-0-9\.]/g, "");
+                    if (replacedValue.split(".").length > 2) {
                         replacedValue = replacedValue.substring(0, replacedValue.length - 1);
                     }
                     if (replacedValue !== value) {
@@ -23,13 +27,10 @@ var AngularSignalRApp;
                     return replacedValue;
                 });
             };
-            DecimalNumber.factory = function () {
-                return function () { return new DecimalNumber(); };
-            };
             return DecimalNumber;
         }());
         Directives.DecimalNumber = DecimalNumber;
-        AngularSignalRApp.AngularSignalR.module.directive('decimalNumber', DecimalNumber.factory());
+        AngularSignalRApp.AngularSignalR.module.directive("decimalNumber", DecimalNumber.factory());
     })(Directives = AngularSignalRApp.Directives || (AngularSignalRApp.Directives = {}));
 })(AngularSignalRApp || (AngularSignalRApp = {}));
 

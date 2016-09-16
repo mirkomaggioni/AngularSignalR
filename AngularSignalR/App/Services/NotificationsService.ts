@@ -1,6 +1,6 @@
 ﻿/// <reference path="../../scripts/typings/signalr/signalr.d.ts" />
 
-module AngularSignalRApp.Services {
+namespace AngularSignalRApp.Services {
 
     export class NotificationsService {
 
@@ -10,17 +10,21 @@ module AngularSignalRApp.Services {
 
         constructor() {
             this.connection = $.hubConnection();
-            this.proxy = this.connection.createHubProxy('NotificationsHub');
+            this.proxy = this.connection.createHubProxy("NotificationsHub");
 
-            this.proxy.on('NotifyOrderChanges', () => {
+            this.proxy.on("NotifyOrderChanges", () => {
                 this.callback();
             });
 
-            this.connection.start();        
+            this.connection.start();
+        }
+
+        public static factory() {
+            return () => new NotificationsService();
         }
 
         public NotifyOrderChanges() {
-            this.proxy.invoke('OrderChanges');
+            this.proxy.invoke("OrderChanges");
         }
 
         public OnOrderChanges(callback: () => void) {
@@ -28,11 +32,7 @@ module AngularSignalRApp.Services {
                 this.callback = callback;
             }
         }
-
-        static factory() {
-            return () => new NotificationsService();
-        }
     }
 
-    AngularSignalR.module.factory('NotificationsService', [NotificationsService.factory()]);
+    AngularSignalR.module.factory("NotificationsService", [NotificationsService.factory()]);
 }

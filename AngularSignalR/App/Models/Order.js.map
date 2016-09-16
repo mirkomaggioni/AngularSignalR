@@ -1,1 +1,1 @@
-{"version":3,"sources":[],"names":[],"mappings":"","file":"Order.js","sourcesContent":[]}
+{"version":3,"sources":["Models/Order.ts"],"names":[],"mappings":"AASC","file":"Order.js","sourcesContent":["namespace AngularSignalRApp.Models {\r\n    export interface IOrder {\r\n        Id: string;\r\n        Article: string;\r\n        Amount: number;\r\n        Customer: string;\r\n        CreationDate: Date;\r\n        Notes: string;\r\n    }\r\n}\r\n"]}

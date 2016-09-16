@@ -9,6 +9,7 @@ var gulp = require('gulp'),
   rename = require('gulp-rename'),
   del = require('del'),
   ts = require('gulp-typescript'),
+  tslint = require('gulp-tslint'),
   sourcemaps = require('gulp-sourcemaps'),
   rev = require('gulp-rev'),
   revReplace = require('gulp-rev-replace'),
@@ -32,11 +33,24 @@ var tsProject = ts.createProject({
   target: 'ES5',
   module: 'CommonJS',
   noExternalResolve: false,
-  noEmitOnErrors: true,
+  noEmitOnErrors: false,
   noImplicitAny: true
 });
 
-gulp.task('typescript', function () {
+gulp.task('tslint', function () {
+  gulp.src(config.ts)
+    .pipe(tslint({
+      formatter: 'verbose'
+    }))
+    .pipe(tslint.report({
+      emitError: true,
+      sort: true,
+      fullPath: true,
+      reportLimit: 10
+    }))
+});
+
+gulp.task('typescript', ['tslint'], function () {
   var tsResult = gulp.src(config.ts)
     .pipe(sourcemaps.init())
     .pipe(ts(tsProject));

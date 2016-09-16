@@ -7,27 +7,27 @@ var AngularSignalRApp;
             function NotificationsService() {
                 var _this = this;
                 this.connection = $.hubConnection();
-                this.proxy = this.connection.createHubProxy('NotificationsHub');
-                this.proxy.on('NotifyOrderChanges', function () {
+                this.proxy = this.connection.createHubProxy("NotificationsHub");
+                this.proxy.on("NotifyOrderChanges", function () {
                     _this.callback();
                 });
                 this.connection.start();
             }
+            NotificationsService.factory = function () {
+                return function () { return new NotificationsService(); };
+            };
             NotificationsService.prototype.NotifyOrderChanges = function () {
-                this.proxy.invoke('OrderChanges');
+                this.proxy.invoke("OrderChanges");
             };
             NotificationsService.prototype.OnOrderChanges = function (callback) {
                 if (callback) {
                     this.callback = callback;
                 }
             };
-            NotificationsService.factory = function () {
-                return function () { return new NotificationsService(); };
-            };
             return NotificationsService;
         }());
         Services.NotificationsService = NotificationsService;
-        AngularSignalRApp.AngularSignalR.module.factory('NotificationsService', [NotificationsService.factory()]);
+        AngularSignalRApp.AngularSignalR.module.factory("NotificationsService", [NotificationsService.factory()]);
     })(Services = AngularSignalRApp.Services || (AngularSignalRApp.Services = {}));
 })(AngularSignalRApp || (AngularSignalRApp = {}));
 

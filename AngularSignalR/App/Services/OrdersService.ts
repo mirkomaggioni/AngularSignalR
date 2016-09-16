@@ -1,5 +1,7 @@
-﻿
-module AngularSignalRApp.Services {
+﻿/// <reference path="../models/order.ts" />
+/// <reference path="../commons.ts" />
+
+namespace AngularSignalRApp.Services {
 
     import ngr = ng.resource;
     import constants = AngularSignalRApp.Commons.Constants;
@@ -12,7 +14,7 @@ module AngularSignalRApp.Services {
         private resource: IOrdersResourceClass;
 
         constructor($resource: ngr.IResourceService) {
-            this.resource = <IOrdersResourceClass> $resource('/api/orders/:id', { id: '@Id' }, {
+            this.resource = <IOrdersResourceClass>$resource("/api/orders/:id", { id: "@Id" }, {
                 get: { method: "GET" },
                 create: { method: "POST" },
                 save: { method: "PUT" },
@@ -21,17 +23,20 @@ module AngularSignalRApp.Services {
             });
         }
 
+        public static factory() {
+            return (r: ngr.IResourceService) => new OrdersService(r);
+        }
+
         public create(order: AngularSignalRApp.Models.IOrder) {
             return this.resource.create(order);
         }
 
         public save(order: AngularSignalRApp.Models.IOrder) {
-            if (order.Id == constants.GuidEmpty) {
+            if (order.Id === constants.guidEmpty) {
                 return this.resource.create(order);
             }
-            else {
-                return this.resource.save(order);
-            }
+
+            return this.resource.save(order);
         }
 
         public delete(order: AngularSignalRApp.Models.IOrder) {
@@ -41,11 +46,7 @@ module AngularSignalRApp.Services {
         public getAll() {
             return this.resource.query();
         }
-
-        static factory() {
-            return (r: ngr.IResourceService) => new OrdersService(r);
-        }
     }
 
-    AngularSignalR.module.factory('OrdersService', ['$resource', OrdersService.factory()]);
+    AngularSignalR.module.factory("OrdersService", ["$resource", OrdersService.factory()]);
 }

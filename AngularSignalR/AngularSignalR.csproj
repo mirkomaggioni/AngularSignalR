@@ -129,6 +129,7 @@
     <Content Include="package.json" />
     <Content Include=".bowerrc" />
     <Content Include="bower.json" />
+    <Content Include="tslint.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

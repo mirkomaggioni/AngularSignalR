@@ -1,6 +1,6 @@
 ﻿/// <reference path="../../scripts/typings/angular-ui-bootstrap/angular-ui-bootstrap.d.ts" />
 
-module AngularSignalRApp.Controllers {
+namespace AngularSignalRApp.Controllers {
 
     export class ModalsController {
         private modalInstance: ng.ui.bootstrap.IModalServiceInstance;
@@ -9,14 +9,14 @@ module AngularSignalRApp.Controllers {
             this.modalInstance = $uibModalInstance;
         }
 
-        public Ok() {
+        public Ok(): void {
             this.modalInstance.close();
         }
 
-        public Cancel() {
+        public Cancel(): void {
             this.modalInstance.dismiss("cancel");
         }
     }
 
-    AngularSignalR.module.controller('ModalsController', ModalsController);
+    AngularSignalR.module.controller("ModalsController", ModalsController);
 }

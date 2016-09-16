@@ -5,18 +5,19 @@
 /// <reference path="../services/ordersservice.ts" />
 /// <reference path="../services/notificationsservice.ts" />
 /// <reference path="../commons.ts" />
+/// <reference path="../app.ts" />
 var AngularSignalRApp;
 (function (AngularSignalRApp) {
     var Controllers;
     (function (Controllers) {
         var constant = AngularSignalRApp.Commons.Constants;
         var OrdersController = (function () {
-            function OrdersController($filter, $uibModal, toaster, OrdersService, NotificationsService) {
+            function OrdersController($filter, $uibModal, toaster, ordersService, notificationsService) {
                 var _this = this;
                 this.filter = $filter;
                 this.modalService = $uibModal;
-                this.ordersService = OrdersService;
-                this.notificationsService = NotificationsService;
+                this.ordersService = ordersService;
+                this.notificationsService = notificationsService;
                 this.constant = constant;
                 this.notificationsService.OnOrderChanges(function () {
                     _this.Load();
@@ -27,7 +28,7 @@ var AngularSignalRApp;
             }
             OrdersController.prototype.New = function () {
                 this.order = {
-                    Id: constant.GuidEmpty,
+                    Id: constant.guidEmpty,
                     Article: "",
                     Amount: 0,
                     CreationDate: new Date(),
@@ -48,7 +49,7 @@ var AngularSignalRApp;
                 });
                 modalInstance.result.then(function () {
                     vm.ordersService.delete(vm.order).$promise.then(function (data) {
-                        var orderToDelete = vm.filter('filter')(vm.orders, { Id: vm.order.Id })[0];
+                        var orderToDelete = vm.filter("filter")(vm.orders, { Id: vm.order.Id })[0];
                         var index = vm.orders.indexOf(orderToDelete);
                         vm.orders.splice(index, 1);
                         vm.order = null;
@@ -62,7 +63,7 @@ var AngularSignalRApp;
             OrdersController.prototype.Save = function () {
                 var _this = this;
                 this.ordersService.save(this.order).$promise.then(function (data) {
-                    if (_this.order.Id == constant.GuidEmpty) {
+                    if (_this.order.Id === constant.guidEmpty) {
                         _this.order = data;
                         _this.orders.push(data);
                     }
@@ -88,7 +89,7 @@ var AngularSignalRApp;
             return OrdersController;
         }());
         Controllers.OrdersController = OrdersController;
-        AngularSignalRApp.AngularSignalR.module.controller('OrdersController', OrdersController);
+        AngularSignalRApp.AngularSignalR.module.controller("OrdersController", OrdersController);
     })(Controllers = AngularSignalRApp.Controllers || (AngularSignalRApp.Controllers = {}));
 })(AngularSignalRApp || (AngularSignalRApp = {}));
 

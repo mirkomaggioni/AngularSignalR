@@ -1,5 +1,5 @@
-﻿declare module AngularSignalRApp.Models {
-    interface IOrder {
+﻿namespace AngularSignalRApp.Models {
+    export interface IOrder {
         Id: string;
         Article: string;
         Amount: number;
