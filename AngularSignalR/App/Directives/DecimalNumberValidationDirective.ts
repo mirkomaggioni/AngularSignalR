@@ -1,18 +1,19 @@
 ﻿/// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
 
 namespace AngularSignalRApp.Directives {
+    "use strict";
 
     export class DecimalNumber implements ng.IDirective {
 
-        public restrict = "A";
-        public require = "?ngModel";
+        public restrict: string = "A";
+        public require: string = "?ngModel";
         public static factory(): ng.IDirectiveFactory {
             return () => new DecimalNumber();
         }
 
-        public link($scope: ng.IScope, element: JQuery, attributes: ng.IAttributes, modelController: ng.INgModelController) {
+        public link($scope: ng.IScope, element: JQuery, attributes: ng.IAttributes, modelController: ng.INgModelController): void {
 
-            modelController.$parsers.push((value) => {
+            modelController.$parsers.push((value: any): string => {
                 if (value === undefined) {
                     return "";
                 }

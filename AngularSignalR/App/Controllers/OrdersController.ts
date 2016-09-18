@@ -8,6 +8,7 @@
 /// <reference path="../app.ts" />
 
 namespace AngularSignalRApp.Controllers {
+    "use strict";
 
     import ngr = ng.resource;
     import constant = AngularSignalRApp.Commons.Constants;
@@ -42,7 +43,7 @@ namespace AngularSignalRApp.Controllers {
             this.Load();
         }
 
-        public New() {
+        public New(): void {
             this.order = {
                 Id: constant.guidEmpty,
                 Article: "",
@@ -53,38 +54,38 @@ namespace AngularSignalRApp.Controllers {
             };
         }
 
-        public Edit(order: AngularSignalRApp.Models.IOrder) {
+        public Edit(order: AngularSignalRApp.Models.IOrder): void {
             this.order = order;
         }
 
-        public Delete() {
+        public Delete(): void {
 
-            let vm = this;
-            let modalInstance = vm.modalService.open({
+            let vm: OrdersController = this;
+            let modalInstance: ng.ui.bootstrap.IModalServiceInstance = vm.modalService.open({
                 animation: true,
                 templateUrl: "/App/Views/Shared/ConfirmDeleteModal.html",
                 controller: "ModalsController as vm",
                 size: "modal-sm"
             });
 
-            modalInstance.result.then(function () {
+            modalInstance.result.then(() => {
                 vm.ordersService.delete(vm.order).$promise.then(
-                    (data) => {
-                        let orderToDelete = vm.filter("filter")(vm.orders, { Id: vm.order.Id })[0];
-                        let index = vm.orders.indexOf(orderToDelete);
+                    (data: Models.IOrder): void => {
+                        let orderToDelete: any = vm.filter("filter")(vm.orders, { Id: vm.order.Id })[0];
+                        let index: number = vm.orders.indexOf(orderToDelete);
                         vm.orders.splice(index, 1);
                         vm.order = null;
 
                         vm.notificationsService.NotifyOrderChanges();
                         vm.toaster.success("Order deleted successfully.");
                     },
-                    (error) => {
+                    (error: any) => {
                         vm.toaster.error("Error deleting order.", error.data.message);
                 });
             });
         }
 
-        public Save() {
+        public Save(): void {
             this.ordersService.save(this.order).$promise.then(
                 (data: any) => {
                     if (this.order.Id === constant.guidEmpty) {
@@ -101,18 +102,18 @@ namespace AngularSignalRApp.Controllers {
             });
         }
 
-        public Close() {
+        public Close(): void {
             this.order = null;
         }
 
-        private Load() {
+        private Load(): void {
             this.ordersService.getAll().$promise.then(
-                (data) => {
+                (data: ngr.IResourceArray<ngr.IResource<Models.IOrder>>) => {
                     this.orders = data;
                     this.toaster.success("Orders loaded successfully.");
                     return;
                 },
-                (error) => {
+                (error: any) => {
                     this.toaster.error("Error loading orders", error.data.message);
             });
         }

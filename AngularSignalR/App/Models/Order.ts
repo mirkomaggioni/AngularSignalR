@@ -1,4 +1,6 @@
 ﻿namespace AngularSignalRApp.Models {
+    "use strict";
+
     export interface IOrder {
         Id: string;
         Article: string;

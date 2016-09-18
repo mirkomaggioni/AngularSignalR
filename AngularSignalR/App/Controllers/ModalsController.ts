@@ -1,6 +1,7 @@
 ﻿/// <reference path="../../scripts/typings/angular-ui-bootstrap/angular-ui-bootstrap.d.ts" />
 
 namespace AngularSignalRApp.Controllers {
+    "use strict";
 
     export class ModalsController {
         private modalInstance: ng.ui.bootstrap.IModalServiceInstance;

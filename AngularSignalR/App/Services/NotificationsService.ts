@@ -1,6 +1,7 @@
 ﻿/// <reference path="../../scripts/typings/signalr/signalr.d.ts" />
 
 namespace AngularSignalRApp.Services {
+    "use strict";
 
     export class NotificationsService {
 
@@ -19,15 +20,15 @@ namespace AngularSignalRApp.Services {
             this.connection.start();
         }
 
-        public static factory() {
+        public static factory(): any {
             return () => new NotificationsService();
         }
 
-        public NotifyOrderChanges() {
+        public NotifyOrderChanges(): void {
             this.proxy.invoke("OrderChanges");
         }
 
-        public OnOrderChanges(callback: () => void) {
+        public OnOrderChanges(callback: () => void): void {
             if (callback) {
                 this.callback = callback;
             }

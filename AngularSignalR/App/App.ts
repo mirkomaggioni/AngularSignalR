@@ -1,6 +1,8 @@
 ﻿/// <reference path="../scripts/typings/angular-ui/angular-ui-router.d.ts" />
 
 namespace AngularSignalRApp {
+    "use strict";
+
     export class AngularSignalR {
         public static module: ng.IModule = angular.module("angularSignalR", ["ngResource", "ui.bootstrap", "ui.router", "toaster", "angular-loading-bar"]);
     }
